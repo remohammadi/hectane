@@ -1,8 +1,4 @@
 FROM golang:latest
-MAINTAINER Nathan Osman <nathan@quickmediasolutions.com>
-
-# Grab the source files and build them
-RUN go get github.com/hectane/hectane
 
 # Set a few configuration defaults
 ENV DIRECTORY=/data \
