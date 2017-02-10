@@ -182,7 +182,7 @@ receive:
 		if m == nil {
 			goto shutdown
 		}
-		h.log.Info("message received in queue")
+		h.log.Infof("message received in queue (to:%s)", m.To)
 	}
 	hostname, err = h.parseHostname(m.From)
 	if err != nil {
@@ -191,7 +191,7 @@ receive:
 	}
 deliver:
 	if c == nil {
-		h.log.Debug("connecting to mail server")
+		h.log.Debugf("connecting to mail server (to:%s)", m.To)
 		c, err = h.connectToMailServer(hostname)
 		if c == nil {
 			if err != nil {
@@ -201,7 +201,7 @@ deliver:
 				goto shutdown
 			}
 		}
-		h.log.Debug("connection established")
+		h.log.Debugf("connection established (to:%s)", m.To)
 	}
 	err = h.deliverToMailServer(c, m)
 	if err != nil {
@@ -221,7 +221,7 @@ deliver:
 		h.log.Error(err.Error())
 		goto cleanup
 	}
-	h.log.Info("message delivered successfully")
+	h.log.Infof("message delivered successfully (to:%s)", m.To)
 cleanup:
 	h.log.Debug("deleting message from disk")
 	err = h.storage.DeleteMessage(m)
