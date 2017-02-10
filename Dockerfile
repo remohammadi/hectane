@@ -1,4 +1,4 @@
-FROM golang:1-onbuild
+FROM golang:1
 
 # Set a few configuration defaults
 ENV DIRECTORY=/data \
@@ -20,3 +20,7 @@ CMD hectane \
 # Expose the SMTP and HTTP API ports
 EXPOSE 25
 EXPOSE 8025
+WORKDIR "/go/src/github.com/hectane/hectane"
+
+COPY . /go/src/github.com/hectane/hectane
+RUN go get -d -v && go install -v
