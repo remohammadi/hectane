@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1-onbuild
 
 # Set a few configuration defaults
 ENV DIRECTORY=/data \
